@@ -1,7 +1,7 @@
 import axios from "axios";
 import { getToken } from "./auth";
 
-const REACT_APP_API_URL= "https://cloud-devops-api.onrender.com";
+const REACT_APP_API_URL = process.env.REACT_APP_API_URL || "https://cloud-devops-api.onrender.com";
 
 
 const api = axios.create({

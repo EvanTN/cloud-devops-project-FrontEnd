@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const REACT_APP_API_URL= "https://cloud-devops-api.onrender.com";
+const REACT_APP_API_URL = process.env.REACT_APP_API_URL || "https://cloud-devops-api.onrender.com";
 
 // LOGIN
 export const loginUser = async (username, password) => {
