@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import ItemCard from "../components/ItemCard";
 import "./Home.css";
 
+const API_URL =
+  process.env.REACT_APP_API_URL || "https://cloud-devops-api.onrender.com";
+
+
 const Search = () => {
   const [query, setQuery] = useState("");
   const [type, setType] = useState("all"); // all, movie, book
@@ -15,8 +19,9 @@ const Search = () => {
     try {
       setLoading(true);
       const res = await fetch(
-        `/search?query=${encodeURIComponent(query)}&type=${type}`
-      );
+  `${API_URL}/search?query=${encodeURIComponent(query)}&type=${type}`
+);
+
       const data = await res.json();
       setResults(data);
     } catch (err) {
