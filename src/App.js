@@ -1,10 +1,17 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 import Navbar from "./components/Navbar";
-import Home from "./pages/Home";
+import ProtectedRoute from "./components/ProtectedRoute";
+
+
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import ProtectedRoute from "./components/ProtectedRoute";
+
+import Dashboard from "./pages/Dashboard";
+import Search from "./pages/Search";
+import MyList from "./pages/MyList";
+import ItemDetail from "./pages/ItemDetail";
 
 function App() {
   return (
@@ -20,7 +27,39 @@ function App() {
           path="/" 
           element={
             <ProtectedRoute>
-              <Home />
+              <Dashboard />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/dashboard" 
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/search" 
+          element={
+            <ProtectedRoute>
+              <Search />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/mylist" 
+          element={
+            <ProtectedRoute>
+              <MyList />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/item/:id" 
+          element={
+            <ProtectedRoute>
+              <ItemDetail />
             </ProtectedRoute>
           } 
         />

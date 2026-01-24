@@ -16,14 +16,21 @@ const Navbar = () => {
     <nav className="navbar">
       <div className="navbar-brand">
         <Link to="/" className="brand-logo">
-          MyApp
+          MovieBookTracker
         </Link>
       </div>
+
       <div className="navbar-links">
         {token ? (
           <>
-            <Link to="/" className="nav-link">
-              Home
+            <Link to="/dashboard" className="nav-link">
+              Dashboard
+            </Link>
+            <Link to="/search" className="nav-link">
+              Search
+            </Link>
+            <Link to="/mylist" className="nav-link">
+              My List
             </Link>
             <button onClick={handleLogout} className="nav-button">
               Logout
