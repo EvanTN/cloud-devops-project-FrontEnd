@@ -45,11 +45,18 @@ const Search = () => {
         <button type="submit" className="cta-button">Search</button>
       </form>
 
-      <div className="items-grid">
-        {results.map((item) => (
-          <ItemCard key={item.externalId} item={item} />
-        ))}
-      </div>
+      {loading ? (
+  <p>Searching...</p>
+) : results.length === 0 ? (
+  <p>No results yet. Try searching for a movie or book.</p>
+) : (
+  <div className="items-grid">
+    {results.map((item) => (
+      <ItemCard key={item.externalId} item={item} />
+    ))}
+  </div>
+)}
+
     </div>
   );
 };
