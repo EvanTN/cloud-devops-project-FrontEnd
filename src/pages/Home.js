@@ -14,9 +14,9 @@ const Home = () => {
 
   return (
     <div style={{ padding: "2rem" }}>
-      <h1>Home Page Yurp</h1>
+      <h1>Home Page</h1>
       {items.length === 0 ? (
-        <p>No items found.</p>
+        <p>No Items - Made to Test Backend Implimentations</p>
       ) : (
         <ul>
           {items.map((item) => (
