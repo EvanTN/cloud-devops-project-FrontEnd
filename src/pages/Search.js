@@ -57,7 +57,7 @@ const Search = () => {
 ) : (
   <div className="items-grid">
     {results.map((item) => (
-      <ItemCard key={item.externalId} item={item} />
+      <ItemCard key={item.id} item={item} />
     ))}
   </div>
 )}

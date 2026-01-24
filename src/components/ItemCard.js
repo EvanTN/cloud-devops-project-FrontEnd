@@ -10,7 +10,13 @@ const ItemCard = ({ item, userItemId, onUpdate }) => {
   const handleAddToMyList = async () => {
     try {
       setLoading(true);
-      const res = await api.post("/user/items", { itemId: item._id });
+      const res = await api.post("/user/items", {
+  external_id: item.externalId,
+  name: item.title,
+  description: item.description || "",
+  media_type: item.type,
+});
+
       setAdded(true);
       if (onUpdate) onUpdate(res); // inform parent to refresh
     } catch (error) {
@@ -23,14 +29,15 @@ const ItemCard = ({ item, userItemId, onUpdate }) => {
   return (
     <div className="item-card">
       <img
-        src={item.posterUrl || "https://via.placeholder.com/200x300"}
-        alt={item.title}
-        className="item-image"
-      />
-      <h3>{item.title}</h3>
+  src={item.posterUrl || "https://via.placeholder.com/200x300"}
+  alt={item.title || item.name}
+/>
+
+<h3>{item.title || item.name}</h3>
+
       <p>{item.type}</p>
       <div style={{ marginTop: "auto", display: "flex", gap: "0.5rem" }}>
-        <Link to={`/item/${item._id}`}>
+        <Link to={`/item/${item.externalId}`}>
           <button className="card-button">Details</button>
         </Link>
         {!added && (
