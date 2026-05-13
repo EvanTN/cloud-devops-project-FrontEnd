@@ -11,7 +11,7 @@ const ItemCard = ({ item, userItemId, onUpdate, children }) => {
   const title = item.title || item.name || "Untitled";
   const description = item.description || "";
   const mediaType = item.type || item.media_type || "unknown";
-  const posterUrl = item.posterUrl || item.poster_url;
+  const posterUrl = item.posterUrl || item.poster_url || item.image || "";
 
   const handleAddToMyList = async () => {
     try {
@@ -41,9 +41,9 @@ const ItemCard = ({ item, userItemId, onUpdate, children }) => {
   return (
     <div className="item-card">
       <img
-        src={posterUrl || "https://via.placeholder.com/200x300"}
-        alt={title}
-      />
+  src={posterUrl || "https://via.placeholder.com/200x300?text=No+Image"}
+  alt={title}
+/>
 
       <h3>{title}</h3>
       <p>{mediaType}</p>
