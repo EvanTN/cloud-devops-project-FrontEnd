@@ -1,26 +1,38 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import api from "../api/api";
-import "./Navbar.css"; // reusing styles for buttons and cards
+import "./Navbar.css";
 
-const ItemCard = ({ item, userItemId, onUpdate }) => {
+const ItemCard = ({ item, userItemId, onUpdate, children }) => {
   const [added, setAdded] = useState(!!userItemId);
   const [loading, setLoading] = useState(false);
+
+  const externalId = item.externalId || item.external_id || item.id || item._id;
+  const title = item.title || item.name || "Untitled";
+  const description = item.description || "";
+  const mediaType = item.type || item.media_type || "unknown";
+  const posterUrl = item.posterUrl || item.poster_url;
 
   const handleAddToMyList = async () => {
     try {
       setLoading(true);
+
       const res = await api.post("/user/items", {
-  external_id: item.externalId,
-  name: item.title,
-  description: item.description || "",
-  media_type: item.type,
-});
+        external_id: externalId,
+        name: title,
+        description,
+        media_type: mediaType,
+        poster_url: posterUrl || "",
+      });
 
       setAdded(true);
-      if (onUpdate) onUpdate(res); // inform parent to refresh
+
+      if (onUpdate) {
+        onUpdate(res.data || res);
+      }
     } catch (error) {
       console.error("Error adding item:", error);
+      alert("Could not add item to your list.");
     } finally {
       setLoading(false);
     }
@@ -29,18 +41,19 @@ const ItemCard = ({ item, userItemId, onUpdate }) => {
   return (
     <div className="item-card">
       <img
-  src={item.posterUrl || "https://via.placeholder.com/200x300"}
-  alt={item.title || item.name}
-/>
+        src={posterUrl || "https://via.placeholder.com/200x300"}
+        alt={title}
+      />
 
-<h3>{item.title || item.name}</h3>
+      <h3>{title}</h3>
+      <p>{mediaType}</p>
 
-      <p>{item.type}</p>
       <div style={{ marginTop: "auto", display: "flex", gap: "0.5rem" }}>
-        <Link to={`/item/${item.externalId}`}>
+        <Link to={`/item/${externalId}`}>
           <button className="card-button">Details</button>
         </Link>
-        {!added && (
+
+        {!added ? (
           <button
             onClick={handleAddToMyList}
             className="card-button"
@@ -48,9 +61,14 @@ const ItemCard = ({ item, userItemId, onUpdate }) => {
           >
             {loading ? "Adding..." : "Add to My List"}
           </button>
+        ) : (
+          <span style={{ color: "#28a745", fontWeight: "bold" }}>
+            Added
+          </span>
         )}
-        {added && <span style={{ color: "#28a745", fontWeight: "bold" }}>Added</span>}
       </div>
+
+      {children && <div style={{ marginTop: "0.75rem" }}>{children}</div>}
     </div>
   );
 };
