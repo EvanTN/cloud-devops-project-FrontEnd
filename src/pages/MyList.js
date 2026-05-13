@@ -52,10 +52,11 @@ const MyList = () => {
         <div className="items-grid">
           {userItems.map((ui) => (
             <ItemCard
-              key={ui._id}
-              item={ui.item}
-              userItemId={ui._id}
-              onUpdate={() => fetchUserItems()}
+    key={ui.id || ui._id}
+    item={ui.item || ui}
+    userItemId={ui.id || ui._id}
+    onUpdate={() => fetchUserItems()}
+
             >
               {/* Extra UI for MyList */}
               <div style={{ marginTop: "0.5rem" }}>
