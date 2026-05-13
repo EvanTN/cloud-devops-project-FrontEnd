@@ -18,12 +18,12 @@ const ItemCard = ({ item, userItemId, onUpdate, children }) => {
       setLoading(true);
 
       const res = await api.post("/user/items", {
-        external_id: externalId,
-        name: title,
-        description,
-        media_type: mediaType,
-        poster_url: posterUrl || "",
-      });
+  external_id: externalId,
+  title: title,
+  description: description,
+  type: mediaType,
+  poster_url: posterUrl || "",
+});
 
       setAdded(true);
 
